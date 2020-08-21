@@ -1,0 +1,39 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: api-gateway
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    gateway:
+      routes:
+        - id: picture_route
+          uri: lb://picture-service
+          order: 1
+          predicates:
+            - Path=/picture-api/**
+            - Age=18,60
+          filters:
+            - StripPrefix=1
+          # 自定义过滤器
+        - id: user_route
+          uri: lb://user-service
+          order: 1
+          predicates:
+            - Path=/user-api/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  security:
+    user:
+      password: user
