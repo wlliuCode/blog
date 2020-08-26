@@ -1,13 +1,13 @@
 package com.wlliu.blog.service.user.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.wlliu.blog.base.entity.entity.User;
 import com.wlliu.blog.service.user.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("user")
@@ -17,9 +17,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping("")
-    public PageInfo<User> getUserList(@Param("pageNum") int pageNum,
-                                      @Param("pageSize") int pageSize) {
-        return userService.getUserList(pageNum, pageSize);
+    public List<User> getUserList() {
+        return userService.getUserList();
     }
     @GetMapping("message")
     public String getMessage() {

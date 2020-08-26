@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserService {
     RocketMQTemplate rocketMqTemplate;
 
     @Override
-    public PageInfo<User> getUserList(int pageNum, int pageSize) {
+    public List<User> getUserList() {
 
-        PageHelper.startPage(pageNum, pageSize);
         List<User> users = userDao.selectList(null);
+        System.out.println(users);
 
         /*List<ServiceInstance> instances = discoveryClient.getInstances("picture-service");
         ServiceInstance serviceInstance = instances.get(0);*/
@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
 
             Result result = remotePictureService.getPictureById(avatarId);
             Map<String, Object> data = result.getData();
+            System.out.println(result);
 
             String pictureStr = JSONObject.toJSONString(data.get("picture"));
             Picture picture = JSON.parseObject(pictureStr, Picture.class);
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
         rocketMqTemplate.convertAndSend("user-topic",users);
 
-        return new PageInfo<>(users);
+        return users;
     }
 
     @Override
