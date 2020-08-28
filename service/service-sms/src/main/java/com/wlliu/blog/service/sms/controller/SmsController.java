@@ -7,6 +7,7 @@ import com.wlliu.blog.base.utils.utils.RandomUtils;
 import com.wlliu.blog.service.sms.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class SmsController {
     SmsService smsService;
 
     @Autowired
-    RedisTemplate redisTemplate;
+    StringRedisTemplate redisTemplate;
 
     @GetMapping("send/{mobile}")
     public Result getLoginCode(@PathVariable("mobile") String mobile) throws ClientException {

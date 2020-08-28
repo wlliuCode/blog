@@ -1,4 +1,5 @@
 package com.wlliu.blog.base.config.config;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -18,11 +19,11 @@ public class Swagger3Config {
 
     @Bean
     public Docket webRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.wlliu.blog.service.*.controller.*.java"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }

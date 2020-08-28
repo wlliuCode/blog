@@ -7,6 +7,9 @@ spring:
       username: root
       password: 123456
       url: jdbc:mysql://47.100.202.70:3306/wlliu_blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  redis:
+    host: 47.100.202.70
+    port: 6379
   zipkin:
     base-url: http://127.0.0.1:9411/
     discovery-client-enabled: false
