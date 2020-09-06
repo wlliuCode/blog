@@ -1,4 +1,4 @@
-package com.wlliu.blog.base.service.result;
+package com.wlliu.blog.gateway.oauthgateway.result;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -59,7 +59,7 @@ public enum ResultCodeEnum {
     LOGIN_PHONE_ERROR(false, 28009, "手机号码不正确"),
     OAUTH_ERROR(false, 28010, "认证失败"),
     OAUTH_UNAUTHORIZED(false, 28011, "暂未登录或token已经过期"),
-    OAUTH_FORBIDDEN(false, 28012, "没有相关权限"),
+    OAUTH_FORBIDDEN(false, 28012, "权限不足"),
 
 
     MY_VALUE(false, 30000, "我的错误");

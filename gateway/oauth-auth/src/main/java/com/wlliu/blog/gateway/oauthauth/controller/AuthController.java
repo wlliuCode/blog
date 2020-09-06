@@ -1,7 +1,7 @@
 package com.wlliu.blog.gateway.oauthauth.controller;
 
-import com.wlliu.blog.gateway.oauthauth.api.CommonResult;
 import com.wlliu.blog.gateway.oauthauth.domain.Oauth2TokenDto;
+import com.wlliu.blog.gateway.oauthauth.result.Result;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -27,7 +27,7 @@ public class AuthController {
      * Oauth2登录认证
      */
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-    public CommonResult<Oauth2TokenDto> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public Result postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
         Oauth2TokenDto oauth2TokenDto = Oauth2TokenDto.builder()
                 .token(oAuth2AccessToken.getValue())
@@ -35,7 +35,7 @@ public class AuthController {
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead("Bearer ").build();
 
-        return CommonResult.success(oauth2TokenDto);
+        return Result.ok().data("oauth2Token",oauth2TokenDto);
     }
 
     @GetMapping("getCode")
