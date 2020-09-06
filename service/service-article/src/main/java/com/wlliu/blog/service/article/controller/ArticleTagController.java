@@ -1,8 +1,8 @@
 package com.wlliu.blog.service.article.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.ArticleTag;
-import com.wlliu.blog.base.entity.entity.Tag;
+import com.wlliu.blog.base.service.entity.ArticleTag;
+import com.wlliu.blog.base.service.entity.Tag;
 import com.wlliu.blog.service.article.dao.ArticleTagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;

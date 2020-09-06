@@ -1,7 +1,7 @@
 package com.wlliu.blog.service.picture.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.Picture;
+import com.wlliu.blog.base.service.entity.Picture;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package com.wlliu.blog.service.comment.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.CommentReply;
+import com.wlliu.blog.base.service.entity.CommentReply;
 import com.wlliu.blog.service.comment.dao.CommentReplyDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

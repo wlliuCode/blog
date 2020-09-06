@@ -1,7 +1,7 @@
 package com.wlliu.blog.service.article.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.Article;
+import com.wlliu.blog.base.service.entity.Article;
 import com.wlliu.blog.service.article.dao.ArticleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

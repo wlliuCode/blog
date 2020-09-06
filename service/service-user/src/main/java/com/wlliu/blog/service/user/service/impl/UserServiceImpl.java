@@ -4,23 +4,23 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.wlliu.blog.base.entity.entity.Picture;
-import com.wlliu.blog.base.entity.entity.User;
-import com.wlliu.blog.base.exception.exception.BlogException;
-import com.wlliu.blog.base.result.result.Result;
-import com.wlliu.blog.base.result.result.ResultCodeEnum;
+import com.wlliu.blog.base.service.entity.Picture;
+import com.wlliu.blog.base.service.entity.User;
+import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.result.Result;
+import com.wlliu.blog.base.service.result.ResultCodeEnum;
 import com.wlliu.blog.base.utils.utils.FormUtils;
+import com.wlliu.blog.base.utils.utils.JwtInfo;
+import com.wlliu.blog.base.utils.utils.JwtUtils;
 import com.wlliu.blog.base.utils.utils.MD5;
 import com.wlliu.blog.service.user.dao.UserDao;
+import com.wlliu.blog.service.user.entity.vo.LoginVo;
 import com.wlliu.blog.service.user.entity.vo.RegisterVo;
 import com.wlliu.blog.service.user.service.RemotePictureService;
 import com.wlliu.blog.service.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
         }
 
         String checkCode = (String) redisTemplate.opsForValue().get(mobile);
-        System.out.println("缓存注册码："+checkCode);
+        System.out.println("缓存注册码：" + checkCode);
 
         if (!code.equals(checkCode)) {
             throw new BlogException(ResultCodeEnum.CODE_ERROR);
@@ -137,7 +137,49 @@ public class UserServiceImpl implements UserService {
         user.setMobile(mobile);
         user.setPassword(MD5.encrypt(password));
         user.setAvatarId("1295022525402697729");
+        user.setIsDisabled("0");
         userDao.insert(user);
+    }
+
+    @Override
+    public String login(LoginVo loginVo) {
+
+
+        String mobile = loginVo.getMobile();
+        String password = loginVo.getPassword();
+
+
+        //参数合法
+        if (StringUtils.isEmpty(mobile)
+                || !FormUtils.isMobile(mobile)
+                || StringUtils.isEmpty(password)) {
+            throw new BlogException(ResultCodeEnum.PARAM_ERROR);
+        }
+
+        //手机号
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mobile", mobile);
+        User user = userDao.selectOne(queryWrapper);
+        if (user == null) {
+            throw new BlogException(ResultCodeEnum.LOGIN_MOBILE_ERROR);
+        }
+
+        //密码
+        if (!MD5.encrypt(password).equals(user.getPassword())) {
+            throw new BlogException(ResultCodeEnum.LOGIN_PASSWORD_ERROR);
+        }
+        //禁用
+        if ("1".equals(user.getIsDisabled())){
+            throw new BlogException(ResultCodeEnum.LOGIN_DISABLED_ERROR);
+        }
+
+        //登录
+        JwtInfo jwtInfo = new JwtInfo();
+        jwtInfo.setId(user.getUserId());
+        jwtInfo.setUsername(user.getUsername());
+        jwtInfo.setAvatar(user.getAvatarId());
+
+        return JwtUtils.getJwtToken(jwtInfo, 1800);
     }
 
 

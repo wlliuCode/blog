@@ -1,6 +1,7 @@
 package com.wlliu.blog.service.article.service;
 
-import com.wlliu.blog.base.entity.entity.Tag;
+
+import com.wlliu.blog.base.service.entity.Tag;
 
 import java.util.List;
 

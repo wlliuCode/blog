@@ -1,6 +1,6 @@
 package com.wlliu.blog.service.user.service;
 
-import com.wlliu.blog.base.result.result.Result;
+import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.service.user.service.fallback.RemotePictureServiceFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;

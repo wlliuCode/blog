@@ -3,7 +3,7 @@ package com.wlliu.blog.service.picture.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.wlliu.blog.base.entity.entity.Picture;
+import com.wlliu.blog.base.service.entity.Picture;
 import com.wlliu.blog.service.picture.dao.PictureDao;
 import com.wlliu.blog.service.picture.service.PictureService;
 import org.apache.commons.lang3.StringUtils;

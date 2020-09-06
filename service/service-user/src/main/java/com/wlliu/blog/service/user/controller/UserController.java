@@ -1,12 +1,18 @@
 package com.wlliu.blog.service.user.controller;
 
-import com.wlliu.blog.base.entity.entity.User;
-import com.wlliu.blog.base.result.result.Result;
+import com.wlliu.blog.base.service.entity.User;
+import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.result.Result;
+import com.wlliu.blog.base.service.result.ResultCodeEnum;
+import com.wlliu.blog.base.utils.utils.JwtInfo;
+import com.wlliu.blog.base.utils.utils.JwtUtils;
+import com.wlliu.blog.service.user.entity.vo.LoginVo;
 import com.wlliu.blog.service.user.entity.vo.RegisterVo;
 import com.wlliu.blog.service.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -25,6 +31,23 @@ public class UserController {
     public Result userRegister(@RequestBody RegisterVo registerVo) {
         userService.register(registerVo);
         return Result.ok().message("注册成功");
+    }
+
+    @PostMapping("login")
+    public Result login(@RequestBody LoginVo loginVo) {
+        String token = userService.login(loginVo);
+        return Result.ok().data("token", token);
+    }
+
+
+    @GetMapping("get-login-info")
+    public Result getLoginInfo(HttpServletRequest request) {
+        try {
+            JwtInfo jwtInfo = JwtUtils.getUserIdByJwtToken(request);
+            return Result.ok().data("userInfo", jwtInfo);
+        } catch (Exception e) {
+            throw new BlogException(ResultCodeEnum.FETCH_USERINFO_ERROR);
+        }
     }
 
     @GetMapping("message")

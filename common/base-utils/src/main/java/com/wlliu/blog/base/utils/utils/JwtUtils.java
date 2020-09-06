@@ -36,7 +36,7 @@ public class JwtUtils {
                 .setIssuedAt(new Date())//颁发时间
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())//过期时间
                 .claim("id", jwtInfo.getId())//用户id
-                .claim("nickname", jwtInfo.getNickname())//用户昵称
+                .claim("nickname", jwtInfo.getUsername())//用户昵称
                 .claim("avatar", jwtInfo.getAvatar())//用户头像
                 .signWith(SignatureAlgorithm.HS256, getKeyInstance())
                 .compact();
@@ -85,7 +85,7 @@ public class JwtUtils {
      * @param request
      * @return
      */
-    public static JwtInfo getMemberIdByJwtToken(HttpServletRequest request) {
+    public static JwtInfo getUserIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if (StringUtils.isEmpty(jwtToken)) return null;
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(getKeyInstance()).parseClaimsJws(jwtToken);

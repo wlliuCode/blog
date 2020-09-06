@@ -14,11 +14,8 @@
 
 
     <modules>
-        <module>base-config</module>
-        <module>base-entity</module>
-        <module>base-exception</module>
-        <module>base-result</module>
         <module>base-utils</module>
+        <module>base-service</module>
     </modules>
 
     <dependencies>

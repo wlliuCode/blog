@@ -1,7 +1,7 @@
 package com.wlliu.blog.service.article.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.Tag;
+import com.wlliu.blog.base.service.entity.Tag;
 import com.wlliu.blog.service.article.dao.TagDao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;

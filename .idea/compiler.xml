@@ -7,18 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="base-config" />
-        <module name="base-result" />
         <module name="service-picture" />
         <module name="service-article" />
-        <module name="base-entity" />
         <module name="service-user" />
-        <module name="api-gateway" />
+        <module name="base-service" />
+        <module name="oauth-gateway" />
         <module name="service-comment" />
         <module name="base-utils" />
         <module name="service-sms" />
-        <module name="base-exception" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway" target="14" />
+      <module name="base-config" target="14" />
+      <module name="base-entity" target="14" />
+      <module name="base-exception" target="14" />
+      <module name="base-result" target="14" />
+    </bytecodeTargetLevel>
   </component>
 </project>

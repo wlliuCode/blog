@@ -1,8 +1,8 @@
 package com.wlliu.blog.service.picture.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wlliu.blog.base.entity.entity.Picture;
-import com.wlliu.blog.base.result.result.Result;
+import com.wlliu.blog.base.service.entity.Picture;
+import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.service.picture.dao.PictureDao;
 import com.wlliu.blog.service.picture.service.PictureService;
 import org.apache.ibatis.annotations.Param;
@@ -25,27 +25,22 @@ public class PictureController {
     PictureService pictureService;
 
     @GetMapping("")
-    public Result getPicture(@Param("pageNum") int pageNum,
-                             @Param("pageSize") int pageSize) {
-        if (pageNum == 0) {
-            pageNum = 1;
-        }
-        if (pageSize == 0) {
-            pageSize = 10;
-        }
+    public Result getPicture() {
+        int pageNum = 1;
+        int pageSize = 10;
         Page<Picture> pictureList = pictureService.getPictureList(pageNum, pageSize);
-        return Result.ok().data("pictureList",pictureList);
+        return Result.ok().data("pictureList", pictureList);
     }
 
     @PostMapping("/ids")
-    public Result getPictureListById(List<String> list){
-        return Result.ok().data("pictureList",pictureService.getPictureListById(list));
+    public Result getPictureListById(List<String> list) {
+        return Result.ok().data("pictureList", pictureService.getPictureListById(list));
     }
 
     @GetMapping("{id}")
     public Result getPictureById(@PathVariable("id") String id) {
         Picture picture = pictureService.getPictureById(id);
-        return Result.ok().data("picture",picture);
+        return Result.ok().data("picture", picture);
     }
 
     @PostMapping("upload")
@@ -54,6 +49,6 @@ public class PictureController {
         if (StringUtils.isEmpty(url)) {
             return Result.error().message("上传失败");
         }
-        return Result.ok().data("picUrl",url);
+        return Result.ok().data("picUrl", url);
     }
 }

@@ -1,7 +1,7 @@
 package com.wlliu.blog.service.user.service.fallback;
 
-import com.wlliu.blog.base.entity.entity.Picture;
-import com.wlliu.blog.base.result.result.Result;
+import com.wlliu.blog.base.service.entity.Picture;
+import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.service.user.service.RemotePictureService;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Service;

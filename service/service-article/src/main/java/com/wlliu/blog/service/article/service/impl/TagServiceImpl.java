@@ -1,6 +1,6 @@
 package com.wlliu.blog.service.article.service.impl;
 
-import com.wlliu.blog.base.entity.entity.Tag;
+import com.wlliu.blog.base.service.entity.Tag;
 import com.wlliu.blog.service.article.dao.TagDao;
 import com.wlliu.blog.service.article.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;

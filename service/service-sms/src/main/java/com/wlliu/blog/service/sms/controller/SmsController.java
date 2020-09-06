@@ -1,13 +1,12 @@
 package com.wlliu.blog.service.sms.controller;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.wlliu.blog.base.result.result.Result;
+import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.base.utils.utils.FormUtils;
 import com.wlliu.blog.base.utils.utils.RandomUtils;
 import com.wlliu.blog.service.sms.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,7 @@ public class SmsController {
     SmsService smsService;
 
     @Autowired
-    StringRedisTemplate redisTemplate;
+    RedisTemplate redisTemplate;
 
     @GetMapping("send/{mobile}")
     public Result getLoginCode(@PathVariable("mobile") String mobile) throws ClientException {
