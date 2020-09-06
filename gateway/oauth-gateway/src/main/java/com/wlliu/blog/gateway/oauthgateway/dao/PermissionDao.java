@@ -1,6 +1,6 @@
-package com.wlliu.blog.gateway.oauthgateway.mapper;
+package com.wlliu.blog.gateway.oauthgateway.dao;
 
-import com.wlliu.blog.gateway.oauthgateway.domain.SysPermission;
+import com.wlliu.blog.gateway.oauthgateway.entity.SysPermission;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -8,13 +8,13 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface PermissionMapper {
+public interface PermissionDao {
 
     @Select("select * from sys_permission")
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "roles", column = "id", javaType = List.class,
-                    many = @Many(select = "com.wlliu.blog.gateway.oauthgateway.mapper.RoleMapper.findByPid"))
+                    many = @Many(select = "com.wlliu.blog.gateway.oauthgateway.dao.RoleDao.findByPid"))
     })
     List<SysPermission> findAllPermissionWithRoles();
 
@@ -23,7 +23,7 @@ public interface PermissionMapper {
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "roleNames", column = "id", javaType = List.class,
-                    many = @Many(select = "com.wlliu.blog.gateway.oauthgateway.mapper.RoleMapper.findRoleNamesByPid"))
+                    many = @Many(select = "com.wlliu.blog.gateway.oauthgateway.dao.RoleDao.findRoleNamesByPid"))
     })
     List<SysPermission> findAllPermissionWithRoleNames();
 }

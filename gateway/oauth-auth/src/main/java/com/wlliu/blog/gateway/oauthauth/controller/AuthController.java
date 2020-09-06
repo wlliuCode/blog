@@ -1,6 +1,6 @@
 package com.wlliu.blog.gateway.oauthauth.controller;
 
-import com.wlliu.blog.gateway.oauthauth.domain.Oauth2TokenDto;
+import com.wlliu.blog.gateway.oauthauth.entity.Oauth2TokenDto;
 import com.wlliu.blog.gateway.oauthauth.result.Result;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -86,7 +86,7 @@ springfox:
     swagger-ui:
       enabled: true
 mybatis-plus:
-  type-aliases-package: com.wlliu.blog.gateway.oauthgateway.domain
+  type-aliases-package: com.wlliu.blog.gateway.oauthgateway.entity
   mapper-locations: classpath:mappers/*.xml
   configuration:
     map-underscore-to-camel-case: true

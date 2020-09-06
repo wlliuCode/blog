@@ -1,8 +1,10 @@
 package com.wlliu.blog.gateway.oauthgateway.authorization;
 
 import com.wlliu.blog.gateway.oauthgateway.constant.AuthConstant;
-import com.wlliu.blog.gateway.oauthgateway.mapper.PermissionMapper;
-import com.wlliu.blog.gateway.oauthgateway.mapper.RoleMapper;
+import com.wlliu.blog.gateway.oauthgateway.dao.PermissionDao;
+import com.wlliu.blog.gateway.oauthgateway.dao.RoleDao;
+import com.wlliu.blog.gateway.oauthgateway.service.PermissionService;
+import com.wlliu.blog.gateway.oauthgateway.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -28,10 +30,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
     private RedisTemplate<String,Object> redisTemplate;
 
     @Autowired
-    private RoleMapper roleMapper;
+    private RoleService roleService;
 
     @Autowired
-    private PermissionMapper permissionMapper;
+    private PermissionService permissionService;
 
     private Map<String, List<String>> resourceRolesMap;
 
@@ -62,7 +64,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         System.out.println("obj  " +obj);
         List<String> authorities = Convert.toList(String.class,obj);*/
 
-        List<String> authorities = roleMapper.findByPermissionUrl(uri.getPath());
+        List<String> authorities = roleService.findByPermissionUrl(uri.getPath());
 
         System.out.println("authorities  "+authorities);
         authorities = authorities.stream().map(i -> i = AuthConstant.AUTHORITY_PREFIX + i).collect(Collectors.toList());

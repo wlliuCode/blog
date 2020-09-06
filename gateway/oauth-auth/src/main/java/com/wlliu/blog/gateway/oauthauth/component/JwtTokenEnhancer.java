@@ -1,6 +1,6 @@
 package com.wlliu.blog.gateway.oauthauth.component;
 
-import com.wlliu.blog.gateway.oauthauth.domain.SysUser;
+import com.wlliu.blog.gateway.oauthauth.entity.SysUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

@@ -1,4 +1,4 @@
-package com.wlliu.blog.gateway.oauthgateway.domain;
+package com.wlliu.blog.gateway.oauthgateway.entity;
 
 import lombok.Data;
 

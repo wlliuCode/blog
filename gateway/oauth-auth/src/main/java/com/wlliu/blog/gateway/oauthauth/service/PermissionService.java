@@ -1,10 +1,8 @@
 package com.wlliu.blog.gateway.oauthauth.service;
 
 
-import com.wlliu.blog.gateway.oauthauth.domain.SysPermission;
+import com.wlliu.blog.gateway.oauthauth.dao.PermissionDao;
 
-import java.util.List;
 
-public interface PermissionService {
-    List<SysPermission> findAllPermissionWithRoles();
+public interface PermissionService extends PermissionDao {
 }

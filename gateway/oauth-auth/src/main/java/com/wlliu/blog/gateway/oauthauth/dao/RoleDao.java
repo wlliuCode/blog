@@ -1,6 +1,6 @@
-package com.wlliu.blog.gateway.oauthauth.mapper;
+package com.wlliu.blog.gateway.oauthauth.dao;
 
-import com.wlliu.blog.gateway.oauthauth.domain.SysRole;
+import com.wlliu.blog.gateway.oauthauth.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface RoleMapper {
+public interface RoleDao {
 
     @Select("SELECT r.id, r.role_name, r.role_desc " +
             "FROM sys_role r, sys_user_role ur " +

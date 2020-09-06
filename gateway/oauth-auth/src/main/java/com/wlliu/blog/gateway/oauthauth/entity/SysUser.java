@@ -1,4 +1,4 @@
-package com.wlliu.blog.gateway.oauthauth.domain;
+package com.wlliu.blog.gateway.oauthauth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

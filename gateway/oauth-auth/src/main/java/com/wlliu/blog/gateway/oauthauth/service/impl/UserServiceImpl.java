@@ -2,8 +2,8 @@ package com.wlliu.blog.gateway.oauthauth.service.impl;
 
 
 import com.wlliu.blog.gateway.oauthauth.constant.MessageConstant;
-import com.wlliu.blog.gateway.oauthauth.domain.SysUser;
-import com.wlliu.blog.gateway.oauthauth.mapper.UserMapper;
+import com.wlliu.blog.gateway.oauthauth.entity.SysUser;
+import com.wlliu.blog.gateway.oauthauth.dao.UserDao;
 import com.wlliu.blog.gateway.oauthauth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

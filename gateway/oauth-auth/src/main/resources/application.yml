@@ -21,7 +21,7 @@ spring:
     port: 6379
     host: 47.100.202.70
 mybatis-plus:
-  type-aliases-package: com.wlliu.blog.gateway.oauthauth.domain
+  type-aliases-package: com.wlliu.blog.gateway.oauthauth.entity
   mapper-locations: classpath:mappers/*.xml
   configuration:
     map-underscore-to-camel-case: true
