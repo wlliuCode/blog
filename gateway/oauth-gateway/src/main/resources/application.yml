@@ -1,0 +1,98 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: oauth-gateway
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+      url: jdbc:mysql:///wlliu_blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  redis:
+    port: 6379
+    host: 47.100.202.70
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    gateway:
+      routes:
+        - id: article_route
+          uri: lb://service-article
+          order: 1
+          predicates:
+            - Path=/article-api/**
+          filters:
+            - StripPrefix=1
+        - id: comment_route
+          uri: lb://service-comment
+          order: 1
+          predicates:
+            - Path=/comment-api/**
+          filters:
+            - StripPrefix=1
+        - id: picture_route
+          uri: lb://service-picture
+          order: 1
+          predicates:
+            - Path=/picture-api/**
+            - Age=18,60
+          filters:
+            - StripPrefix=1
+          # 自定义过滤器
+        - id: user_route
+          uri: lb://service-user
+          order: 1
+          predicates:
+            - Path=/user-api/**
+          filters:
+            - StripPrefix=1
+        - id: user_route
+          uri: lb://service-sms
+          order: 1
+          predicates:
+            - Path=/sms-api/**
+          filters:
+            - StripPrefix=1
+        - id: auth_toute
+          uri: lb://oauth-auth
+          order: 1
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  security:
+    user:
+      password: user
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:7001/rsa/publicKey' #配置RSA的公钥访问地址
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+mybatis-plus:
+  type-aliases-package: com.wlliu.blog.gateway.oauthgateway.domain
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/**"
+      - "/login"

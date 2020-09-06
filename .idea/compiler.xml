@@ -15,6 +15,7 @@
         <module name="service-comment" />
         <module name="base-utils" />
         <module name="service-sms" />
+        <module name="oauth-auth" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
