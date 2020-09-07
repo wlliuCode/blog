@@ -45,7 +45,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
 
     @Bean
-    public JdbcClientDetailsService jdbcClientDetailsService(){
+    public JdbcClientDetailsService jdbcClientDetailsService() {
         return new JdbcClientDetailsService(dataSource);
     }
 
@@ -88,6 +88,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> delegates = new ArrayList<>();
+        endpoints.pathMapping("/oauth/check_token", "/oauth/introspect");
         delegates.add(jwtTokenEnhancer);
         delegates.add(accessTokenConverter());
         enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器

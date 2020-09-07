@@ -81,10 +81,6 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: 'http://localhost:7001/rsa/publicKey' #配置RSA的公钥访问地址
-springfox:
-  documentation:
-    swagger-ui:
-      enabled: true
 mybatis-plus:
   type-aliases-package: com.wlliu.blog.gateway.oauthgateway.entity
   mapper-locations: classpath:mappers/*.xml
@@ -96,3 +92,19 @@ secure:
       - "/actuator/**"
       - "/auth/oauth/**"
       - "/login"
+      #swagger
+      - "/swagger-ui.html"
+      - "/swagger-resources/**"
+      - "/swagger-resources/**"
+      - "/v2/**"
+      - "/v3/**"
+      - "/webjars/**"
+
+      - "/*/swagger-ui.html"
+      - "/*/swagger-resources/**"
+      - "/*/swagger-resources/**"
+      - "/*/v2/**"
+      - "/*/v3/**"
+      - "/*/webjars/**"
+
+      #- "/**"

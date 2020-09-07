@@ -1,6 +1,5 @@
 package com.wlliu.blog.gateway.oauthauth.controller;
 
-import com.wlliu.blog.gateway.oauthauth.entity.Oauth2TokenDto;
 import com.wlliu.blog.gateway.oauthauth.result.Result;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,12 @@ import java.util.Map;
 @RequestMapping("/oauth")
 public class AuthController {
 
-    @Autowired
+    /*@Autowired
     private TokenEndpoint tokenEndpoint;
 
-    /**
+    *//**
      * Oauth2登录认证
-     */
+     *//*
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     public Result postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
@@ -36,9 +35,9 @@ public class AuthController {
                 .tokenHead("Bearer ").build();
 
         return Result.ok().data("oauth2Token",oauth2TokenDto);
-    }
+    }*/
 
-    @GetMapping("getCode")
+    @GetMapping("code")
     public void getCode(@Param("code") String code) {
         System.out.println(code);
     }

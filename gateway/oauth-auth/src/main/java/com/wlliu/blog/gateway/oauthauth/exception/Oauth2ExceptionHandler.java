@@ -1,3 +1,4 @@
+/*
 package com.wlliu.blog.gateway.oauthauth.exception;
 
 
@@ -8,10 +9,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+*/
 /**
  * 全局处理Oauth2抛出的异常
  * Created by macro on 2020/7/17.
- */
+ *//*
+
 @ControllerAdvice
 public class Oauth2ExceptionHandler {
     @ResponseBody
@@ -20,3 +23,4 @@ public class Oauth2ExceptionHandler {
         return Result.setResult(ResultCodeEnum.OAUTH_ERROR);
     }
 }
+*/
