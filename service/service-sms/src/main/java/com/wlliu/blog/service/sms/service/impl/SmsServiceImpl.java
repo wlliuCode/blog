@@ -8,7 +8,7 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.exception.GlobalException;
 import com.wlliu.blog.base.service.result.ResultCodeEnum;
 import com.wlliu.blog.service.sms.entity.SmsProperties;
 import com.wlliu.blog.service.sms.service.SmsService;
@@ -59,12 +59,12 @@ public class SmsServiceImpl implements SmsService {
 
         if ("isv.BUSINESS_LIMIT_CONTROL".equals(message)) {
             log.error("发送短信过于频繁：code={},message={}", code, message);
-            throw new BlogException(ResultCodeEnum.SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL);
+            throw new GlobalException(ResultCodeEnum.SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL);
         }
 
         if (!"OK".equals(code)) {
             log.error("发送短信失败：code={},message={}", code, message);
-            throw new BlogException(ResultCodeEnum.SMS_SEND_ERROR);
+            throw new GlobalException(ResultCodeEnum.SMS_SEND_ERROR);
         }
 
 

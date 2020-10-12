@@ -6,7 +6,10 @@ import com.wlliu.blog.base.service.entity.Comment;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface CommentDao extends BaseMapper<Comment> {
+    List<Comment> selectByArticleId(String articleId);
 }

@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Objects;
 
-@FrameworkEndpoint
+//@FrameworkEndpoint
 public class IntrospectEndpoint {
     @Resource(type = DefaultTokenServices.class)
     @Lazy

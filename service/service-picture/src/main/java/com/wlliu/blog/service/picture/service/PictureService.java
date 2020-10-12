@@ -13,5 +13,5 @@ public interface PictureService {
 
     Picture getPictureById(String id);
 
-    String uploadImage(MultipartFile file) throws IOException;
+    String uploadImage(MultipartFile file) throws Exception;
 }

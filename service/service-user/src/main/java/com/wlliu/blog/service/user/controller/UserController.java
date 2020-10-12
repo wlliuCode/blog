@@ -1,11 +1,12 @@
 package com.wlliu.blog.service.user.controller;
 
 import com.wlliu.blog.base.service.entity.User;
-import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.exception.GlobalException;
 import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.base.service.result.ResultCodeEnum;
 import com.wlliu.blog.base.utils.utils.JwtInfo;
 import com.wlliu.blog.base.utils.utils.JwtUtils;
+import com.wlliu.blog.service.user.dao.UserDao;
 import com.wlliu.blog.service.user.entity.vo.LoginVo;
 import com.wlliu.blog.service.user.entity.vo.RegisterVo;
 import com.wlliu.blog.service.user.service.UserService;
@@ -46,8 +47,13 @@ public class UserController {
             JwtInfo jwtInfo = JwtUtils.getUserIdByJwtToken(request);
             return Result.ok().data("userInfo", jwtInfo);
         } catch (Exception e) {
-            throw new BlogException(ResultCodeEnum.FETCH_USERINFO_ERROR);
+            throw new GlobalException(ResultCodeEnum.FETCH_USERINFO_ERROR);
         }
+    }
+
+    @PostMapping("{id}")
+    public Result getUserById(@PathVariable("id") String id){
+        return Result.ok().data("user", userService.getUserById(id));
     }
 
     @GetMapping("message")

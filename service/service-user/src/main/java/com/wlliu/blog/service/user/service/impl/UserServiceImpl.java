@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wlliu.blog.base.service.entity.Picture;
 import com.wlliu.blog.base.service.entity.User;
-import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.exception.GlobalException;
 import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.base.service.result.ResultCodeEnum;
 import com.wlliu.blog.base.utils.utils.FormUtils;
@@ -110,26 +110,26 @@ public class UserServiceImpl implements UserService {
 
         if (StringUtils.isEmpty(mobile)
                 || !FormUtils.isMobile(mobile)) {
-            throw new BlogException(ResultCodeEnum.LOGIN_MOBILE_ERROR);
+            throw new GlobalException(ResultCodeEnum.LOGIN_MOBILE_ERROR);
         }
         if (StringUtils.isEmpty(username)
                 || StringUtils.isEmpty(password)
                 || StringUtils.isEmpty(code)) {
-            throw new BlogException(ResultCodeEnum.PARAM_ERROR);
+            throw new GlobalException(ResultCodeEnum.PARAM_ERROR);
         }
 
         String checkCode = (String) redisTemplate.opsForValue().get(mobile);
         System.out.println("缓存注册码：" + checkCode);
 
         if (!code.equals(checkCode)) {
-            throw new BlogException(ResultCodeEnum.CODE_ERROR);
+            throw new GlobalException(ResultCodeEnum.CODE_ERROR);
         }
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mobile", mobile);
         Integer count = userDao.selectCount(queryWrapper);
         if (count > 0) {
-            throw new BlogException(ResultCodeEnum.REGISTER_MOBLE_ERROR);
+            throw new GlobalException(ResultCodeEnum.REGISTER_MOBLE_ERROR);
         }
         //注册
         User user = new User();
@@ -139,6 +139,11 @@ public class UserServiceImpl implements UserService {
         user.setAvatarId("1295022525402697729");
         user.setIsDisabled("0");
         userDao.insert(user);
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return userDao.selectById(id);
     }
 
     @Override
@@ -153,7 +158,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(mobile)
                 || !FormUtils.isMobile(mobile)
                 || StringUtils.isEmpty(password)) {
-            throw new BlogException(ResultCodeEnum.PARAM_ERROR);
+            throw new GlobalException(ResultCodeEnum.PARAM_ERROR);
         }
 
         //手机号
@@ -161,16 +166,16 @@ public class UserServiceImpl implements UserService {
         queryWrapper.eq("mobile", mobile);
         User user = userDao.selectOne(queryWrapper);
         if (user == null) {
-            throw new BlogException(ResultCodeEnum.LOGIN_MOBILE_ERROR);
+            throw new GlobalException(ResultCodeEnum.LOGIN_MOBILE_ERROR);
         }
 
         //密码
         if (!MD5.encrypt(password).equals(user.getPassword())) {
-            throw new BlogException(ResultCodeEnum.LOGIN_PASSWORD_ERROR);
+            throw new GlobalException(ResultCodeEnum.LOGIN_PASSWORD_ERROR);
         }
         //禁用
         if ("1".equals(user.getIsDisabled())){
-            throw new BlogException(ResultCodeEnum.LOGIN_DISABLED_ERROR);
+            throw new GlobalException(ResultCodeEnum.LOGIN_DISABLED_ERROR);
         }
 
         //登录

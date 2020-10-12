@@ -1,8 +1,6 @@
 package com.wlliu.blog.base.service.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +12,8 @@ public class Category implements Serializable {
     @TableId(value = "category_id", type = IdType.ASSIGN_ID)
     private String categoryId;
     private String categoryName;
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 }

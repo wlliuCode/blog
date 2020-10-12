@@ -3,7 +3,7 @@ package com.wlliu.blog.gateway.oauthgateway.config;
 import cn.hutool.core.util.ArrayUtil;
 import com.wlliu.blog.gateway.oauthgateway.authorization.AuthorizationManager;
 import com.wlliu.blog.gateway.oauthgateway.component.RestAuthenticationEntryPoint;
-import com.wlliu.blog.gateway.oauthgateway.component.RestfulAccessDeniedHandler;
+import com.wlliu.blog.gateway.oauthgateway.component.RestAccessDeniedHandler;
 import com.wlliu.blog.gateway.oauthgateway.constant.AuthConstant;
 import com.wlliu.blog.gateway.oauthgateway.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 public class ResourceServerConfig {
     private final AuthorizationManager authorizationManager;
     private final IgnoreUrlsConfig ignoreUrlsConfig;
-    private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+    private final RestAccessDeniedHandler restfulAccessDeniedHandler;
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
 
@@ -49,7 +49,9 @@ public class ResourceServerConfig {
                 .and().exceptionHandling()
                 .accessDeniedHandler(restfulAccessDeniedHandler)//处理未授权
                 .authenticationEntryPoint(restAuthenticationEntryPoint)//处理未认证
-                .and().csrf().disable();
+                .and()
+                .csrf()
+                .disable();
         return http.build();
     }
 

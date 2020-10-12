@@ -42,8 +42,11 @@ public class MySwaggerResourceProvider implements SwaggerResourcesProvider {
         // 获取所有可用的host：serviceId
         routeLocator.getRoutes().filter(route -> route.getUri().getHost() != null)
                 .filter(route -> !self.equals(route.getUri().getHost()))
-                .subscribe(route -> routeHosts.add(route.getUri().getHost()));
-
+                .subscribe(route -> {
+                    if (!"oauth-auth".equals(route.getUri().getHost())) {
+                        routeHosts.add(route.getUri().getHost());
+                    }
+                });
         // 记录已经添加过的server，存在同一个应用注册了多个服务在eureka上
         Set<String> dealed = new HashSet<>();
         routeHosts.forEach(instance -> {

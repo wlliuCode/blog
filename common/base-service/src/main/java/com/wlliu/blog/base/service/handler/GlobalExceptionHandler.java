@@ -1,7 +1,7 @@
 package com.wlliu.blog.base.service.handler;
 
 
-import com.wlliu.blog.base.service.exception.BlogException;
+import com.wlliu.blog.base.service.exception.GlobalException;
 import com.wlliu.blog.base.service.result.Result;
 import com.wlliu.blog.base.service.result.ResultCodeEnum;
 import com.wlliu.blog.base.utils.utils.ExceptionUtils;
@@ -42,9 +42,9 @@ public class GlobalExceptionHandler {
         return Result.setResult(ResultCodeEnum.JSON_PARSE_ERROR);
     }
 
-    @ExceptionHandler(BlogException.class)
+    @ExceptionHandler(GlobalException.class)
     @ResponseBody
-    public Result error(BlogException e){
+    public Result error(GlobalException e){
         log.error(ExceptionUtils.getMessage(e));
         return Result.error().message(e.getMessage()).code(e.getCode());
     }

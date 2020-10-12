@@ -13,5 +13,7 @@ public interface UserService {
 
     void register(RegisterVo registerVo);
 
+    User getUserById(String id);
+
     String login(LoginVo loginVo);
 }

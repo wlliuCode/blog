@@ -57,13 +57,18 @@ public enum ResultCodeEnum {
     SMS_SEND_ERROR_BUSINESS_LIMIT_CONTROL(false, 28007, "短信发送过于频繁"),
     LOGIN_PASSWORD_ERROR(false, 28008, "密码不正确"),
     LOGIN_PHONE_ERROR(false, 28009, "手机号码不正确"),
-    OAUTH_ERROR(false, 28010, "认证失败"),
-    OAUTH_UNAUTHORIZED(false, 28011, "暂未登录或token已经过期"),
-    OAUTH_FORBIDDEN(false, 28012, "权限不足"),
 
 
-    MY_VALUE(false, 30000, "我的错误");
+    OAUTH_ERROR(false, 30000, "认证失败"),
+    OAUTH_UNAUTHORIZED(false, 30001, "暂未登录或token已经过期"),
+    OAUTH_FORBIDDEN(false, 30002, "权限不足"),
 
+    USERNAME_PASSWORD_ERROR(false, 30010, "用户名或密码错误"),
+    CREDENTIALS_EXPIRED(false, 30011, "该账户的登录凭证已过期，请重新登录!"),
+    ACCOUNT_DISABLED(false, 30012, "该账户已被禁用，请联系管理员!"),
+    ACCOUNT_LOCKED(false, 30013, "该账号已被锁定，请联系管理员!"),
+    ACCOUNT_EXPIRED(false, 30014, "该账号已过期，请联系管理员!"),
+    PERMISSION_DENIED(false, 30015, "没有访问权限，请联系管理员!");
 
     private Boolean success;
 

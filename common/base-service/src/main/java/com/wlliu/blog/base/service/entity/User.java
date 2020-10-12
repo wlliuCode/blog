@@ -1,9 +1,6 @@
 package com.wlliu.blog.base.service.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,14 +14,15 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String avatarId;
+    private String avatarUrl;
     private String gender;
     private Date birthday;
     private String email;
     private String address;
     private String mobile;
     private String isDisabled;
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
-    @TableField(exist = false)
-    private String avatarUrl;
 }

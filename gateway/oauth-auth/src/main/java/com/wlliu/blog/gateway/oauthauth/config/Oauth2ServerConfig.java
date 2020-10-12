@@ -1,8 +1,10 @@
 package com.wlliu.blog.gateway.oauthauth.config;
 
 import com.wlliu.blog.gateway.oauthauth.component.JwtTokenEnhancer;
+import com.wlliu.blog.gateway.oauthauth.exce.CustomWebResponseExceptionTranslator;
 import com.wlliu.blog.gateway.oauthauth.service.impl.UserServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -17,12 +19,14 @@ import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -43,6 +47,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     private final JwtTokenEnhancer jwtTokenEnhancer;
     private final DataSource dataSource;
 
+    @Autowired
+    private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
 
     @Bean
     public JdbcClientDetailsService jdbcClientDetailsService() {
@@ -88,10 +94,12 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> delegates = new ArrayList<>();
-        endpoints.pathMapping("/oauth/check_token", "/oauth/introspect");
+        //endpoints.pathMapping("/oauth/check_token", "/oauth/introspect");
         delegates.add(jwtTokenEnhancer);
         delegates.add(accessTokenConverter());
         enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器
+
+        //endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService) //配置加载用户信息的服务
                 .accessTokenConverter(accessTokenConverter())
@@ -104,6 +112,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients();
+
+
         security.checkTokenAccess("isAuthenticated()");
     }
 

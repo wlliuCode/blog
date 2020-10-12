@@ -44,7 +44,7 @@ public class PictureController {
     }
 
     @PostMapping("upload")
-    public Result uploadImage(@Param("file") MultipartFile file) throws IOException {
+    public Result uploadImage(@RequestBody MultipartFile file) throws Exception {
         String url = pictureService.uploadImage(file);
         if (StringUtils.isEmpty(url)) {
             return Result.error().message("上传失败");
